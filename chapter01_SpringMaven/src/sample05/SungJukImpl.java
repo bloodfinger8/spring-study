@@ -2,7 +2,9 @@ package sample05;
 
 import java.util.Scanner;
 
+import org.springframework.stereotype.Component;
 
+@Component
 public class SungJukImpl implements SungJuk {
 	private String name;
 	private int kor;
@@ -27,22 +29,15 @@ public class SungJukImpl implements SungJuk {
 	@Override
 	public void calc() {
 		total = kor + eng + math;
-		avg = total / 3;
+		avg = total / 3.0;
 	}
 
 	@Override
 	public void display() {
-		System.out.println(toString());
-	}
-
-
-	@Override
-	public String toString() {
 		System.out.println("이름\t국어\t영어\t수학\t총점\t평균");
-		return name +"\t"+ kor +"\t"+ eng +"\t"+ math +"\t"+ total +"\t"+ String.format("%,.3f", avg);
+		System.out.println(name +"\t"+ kor +"\t"+ eng +"\t"+ math +"\t"+ total +"\t"+ String.format("%,.3f", avg));
 	}
-	
-	
-	
+
+
 
 }

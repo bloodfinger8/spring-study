@@ -7,18 +7,7 @@
 
 	
 	<context:component-scan base-package="sample03"/>
+	<context:component-scan base-package="sample04"/>
+	<context:component-scan base-package="sample05"/>
 	
-	<!-- 
-	scope="prototype"
-		  "request"
-		  "session"
-		  "singlton"
-	 -->
-	 
-	 <!-- sample04 -->
-	 <bean id="calcAdd" class="sample04.CalcAdd"></bean>
-	 <bean id="calcMul" class="sample04.CalcMul"></bean>
-	 
-	 
-	 <bean id="sungJukImpl" class="sample05.SungJukImpl"></bean>
 </beans>

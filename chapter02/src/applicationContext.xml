@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<bean id="messageBeanImpl" class="sample01.MessageBeanImpl">
+		<constructor-arg>
+			<value>딸기</value>
+		</constructor-arg>
+		<property name="cost">
+			<value>5000</value>
+		</property>
+		<property name="qty" value="3"/>
+	</bean>
+	
+	<!-- sample02 -->
+	<bean id="calcAdd" class="sample02.CalcAdd">
+		<constructor-arg value="25"/>
+		<constructor-arg value="36"/>
+	</bean>
+	<bean id="calcMul" class="sample02.CalcMul">
+		<property name="a" value="25"/>
+		<property name="b" value="36"/>
+	</bean>
+	
+	<!-- sample03 -->
+	<bean id="sungJukDTO" class="sample03.SungJukDTO">
+		<property name="name" value="양재우"></property>
+		<property name="kor" value="97"></property>
+		<property name="eng" value="100"></property>
+		<property name="math" value="95"></property>
+	</bean>
+	<bean id="sungJukImpl" class="sample03.SungJukImpl">
+		<constructor-arg ref="sungJukDTO"></constructor-arg>
+	</bean>
+	
+	<!-- sample05 -->
+	<bean id="helloSpring" class="sample05.HelloSpring"></bean>
+	<bean id="sungJukInput" class="sample05.SungJukInput"></bean>
+	<bean id="sungJukOutput" class="sample05.SungJukOutput"></bean>
+	<bean id="sungJukModify" class="sample05.SungJukModify"></bean>
+	<bean id="sungJukDelete" class="sample05.SungJukDelete"></bean>
+</beans>
