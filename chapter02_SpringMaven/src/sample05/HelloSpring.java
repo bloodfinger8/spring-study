@@ -3,15 +3,18 @@ package sample05;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
-@Component
+@ComponentScan("com.conf")
 public class HelloSpring {
 	//ArrayList list = new ArrayList(); com.conf로 잡지 못한다면 이렇게 써라
-	static ArrayList<SungJukDTO> list = new ArrayList<SungJukDTO>();
-	
+	//static ArrayList<SungJukDTO> list = new ArrayList<SungJukDTO>();
+	@Autowired
+	static ArrayList<SungJukDTO> list;
 	
 	
 	public void manu() {

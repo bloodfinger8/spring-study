@@ -1,8 +1,8 @@
 package sample05;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.ComponentScan;
 
-@Component
+@ComponentScan("com.conf")
 public class SungJukOutput implements SungJuk{
 
 	@Override

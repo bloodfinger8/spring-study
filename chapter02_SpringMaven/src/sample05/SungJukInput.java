@@ -2,19 +2,16 @@ package sample05;
 
 import java.util.Scanner;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 
-@Component
+@ComponentScan("com.conf")
 public class SungJukInput implements SungJuk {
+	@Autowired
+	private SungJukDTO sungJukDTO;
 	
 	@Override
 	public void execute() {
-		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-		SungJukDTO sungJukDTO = (SungJukDTO)context.getBean("sungJukDTO");
-		//SungJukDTO sungJukDTO = new SungJukDTO();
-		
 		//데이터 입력
 		Scanner scan = new Scanner(System.in);
 		System.out.println("이름 입력 : ");

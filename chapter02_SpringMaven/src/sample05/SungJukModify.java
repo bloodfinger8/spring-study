@@ -2,9 +2,9 @@ package sample05;
 
 import java.util.Scanner;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.ComponentScan;
 
-@Component
+@ComponentScan("com.conf")
 public class SungJukModify implements SungJuk {
 
 	@Override
