@@ -26,7 +26,7 @@
 	</bean>
 	
 	<!-- sample03 -->
-	<bean id="sungJukDTO" class="sample03.SungJukDTO">
+	<!-- <bean id="sungJukDTO" class="sample03.SungJukDTO">
 		<property name="name" value="양재우"></property>
 		<property name="kor" value="97"></property>
 		<property name="eng" value="100"></property>
@@ -34,12 +34,14 @@
 	</bean>
 	<bean id="sungJukImpl" class="sample03.SungJukImpl">
 		<constructor-arg ref="sungJukDTO"></constructor-arg>
-	</bean>
+	</bean> --> 
 	
 	<!-- sample05 -->
+	<bean id="sungJukDTO" class="sample05.SungJukDTO"></bean>
 	<bean id="helloSpring" class="sample05.HelloSpring"></bean>
 	<bean id="sungJukInput" class="sample05.SungJukInput"></bean>
 	<bean id="sungJukOutput" class="sample05.SungJukOutput"></bean>
 	<bean id="sungJukModify" class="sample05.SungJukModify"></bean>
 	<bean id="sungJukDelete" class="sample05.SungJukDelete"></bean>
+	
 </beans>

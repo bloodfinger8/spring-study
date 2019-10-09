@@ -12,9 +12,9 @@ public class SungJukImpl implements SungJuk {
 	private int math;
 	private int total;
 	private double avg;
-	private Scanner scan = new Scanner(System.in);
 	
 	public SungJukImpl() {
+		Scanner scan = new Scanner(System.in);
 		System.out.println("이름 입력 : ");
 		this.name = scan.next();
 		System.out.println("국어 입력 : ");
@@ -24,7 +24,6 @@ public class SungJukImpl implements SungJuk {
 		System.out.println("수학 입력 : ");
 		this.math = scan.nextInt();
 	}
-	
 	
 	@Override
 	public void calc() {

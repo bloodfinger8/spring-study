@@ -1,5 +1,7 @@
 package com.conf;
 
+import java.util.ArrayList;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,6 +21,11 @@ public class Instance {
 	@Bean(name="sungJukDTO")
 	public SungJukDTO getSungJukDTO() {
 		return new SungJukDTO();
+	}
+	
+	@Bean(name="list")
+	public ArrayList<SungJukDTO> getList(){
+		return new ArrayList<SungJukDTO>();
 	}
 //	@bean @component 의 차이를 알고있어라
 }

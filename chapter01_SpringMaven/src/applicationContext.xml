@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	
+	<!-- annotation 을 작성했다 알림 -->
 	<context:component-scan base-package="sample03"/>
 	<context:component-scan base-package="sample04"/>
 	<context:component-scan base-package="sample05"/>
