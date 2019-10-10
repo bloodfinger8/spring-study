@@ -36,12 +36,37 @@
 		<constructor-arg ref="sungJukDTO"></constructor-arg>
 	</bean> --> 
 	
+	<!-- sample04 -->
+	<!-- <bean id="messageBeanImpl2" class="sample04.MessageBeanImpl">
+		<constructor-arg value="홍길동" />
+		<property name ="phone" value="01012341234"/>
+		<property name ="outputter" ref="fileOutputter"/>
+	</bean>
+	<bean id="fileOutputter" class="sample04.FileOutputter">
+		<property name="filePath" value="/Users/yangjaewoo/Spring/"/> setFilePath 메소드를 부른다
+		<property name="fileName" value="result.txt"/>
+	</bean> -->
+	<!-- 먼저 MessageBeanImpl 생성하고 fileOutputter를 생성한다 그래야 ref 할 수 있기때문에
+		 그래서 42번라인 수행후 46번라인으로 이동한다  -->
+	
+	
 	<!-- sample05 -->
-	<bean id="sungJukDTO" class="sample05.SungJukDTO"></bean>
+	<bean id="sungJukDTO" class="sample05.SungJukDTO" scope="prototype"></bean>
 	<bean id="helloSpring" class="sample05.HelloSpring"></bean>
-	<bean id="sungJukInput" class="sample05.SungJukInput"></bean>
-	<bean id="sungJukOutput" class="sample05.SungJukOutput"></bean>
-	<bean id="sungJukModify" class="sample05.SungJukModify"></bean>
-	<bean id="sungJukDelete" class="sample05.SungJukDelete"></bean>
+	<bean id="sungJukInput" class="sample05.SungJukInput" scope="prototype">
+		<property name="list" ref="arrayList" />
+		<property name="sungJukDTO" ref="sungJukDTO" />
+	</bean>
+	<bean id="sungJukOutput" class="sample05.SungJukOutput">
+		<property name="list" ref="arrayList" />
+	</bean>
+	<bean id="sungJukModify" class="sample05.SungJukModify">
+		<property name="list" ref="arrayList" />
+	</bean>
+	<bean id="sungJukDelete" class="sample05.SungJukDelete">
+		<property name="list" ref="arrayList" />
+	</bean>
+	<bean id="arrayList" class="java.util.ArrayList"/>
+	
 	
 </beans>

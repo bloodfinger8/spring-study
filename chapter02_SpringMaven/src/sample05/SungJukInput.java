@@ -1,42 +1,57 @@
 package sample05;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 
 @ComponentScan("com.conf")
 public class SungJukInput implements SungJuk {
 	@Autowired
-	private SungJukDTO sungJukDTO;
+	private ArrayList<SungJukDTO2> list;
+	@Autowired
+	private SungJukDTO2 sungJukDTO2;
+	
+	public void setSungJukDTO(SungJukDTO2 sungJukDTO2) {
+		this.sungJukDTO2 = sungJukDTO2;
+	}
 	
 	@Override
 	public void execute() {
+//		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//		SungJukDTO sungJukDTO = (SungJukDTO)context.getBean("sungJukDTO");
+		System.out.println("list 전 길이 : " + list.size());
 		//데이터 입력
 		Scanner scan = new Scanner(System.in);
 		System.out.println("이름 입력 : ");
 		String name = scan.next();
 		
 		//list에 동일한 이름이 있는지 체크
-		for(int i=0;i<HelloSpring.list.size();i++) {
-			if(HelloSpring.list.get(i).getName().equals(name)) {
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getName().equals(name)) {
 				System.out.println("동일한 이름 존재");
 				return;
 			}
 		}
-		sungJukDTO.setName(name);
+		sungJukDTO2.setName(name);
 		System.out.println("국어 점수 입력 : ");
-		sungJukDTO.setKor(scan.nextInt());
+		sungJukDTO2.setKor(scan.nextInt());
 		System.out.println("영어 점수 입력 : ");
-		sungJukDTO.setEng(scan.nextInt());
+		sungJukDTO2.setEng(scan.nextInt());
 		System.out.println("수학 점수 입력 : ");
-		sungJukDTO.setMath(scan.nextInt());
+		sungJukDTO2.setMath(scan.nextInt());
 		
 		//데이터 계산
-		sungJukDTO.setTot(sungJukDTO.getKor() + sungJukDTO.getEng() + sungJukDTO.getMath());
-		sungJukDTO.setAvg(sungJukDTO.getTot() / 3.0);
+		sungJukDTO2.setTot(sungJukDTO2.getKor() + sungJukDTO2.getEng() + sungJukDTO2.getMath());
+		sungJukDTO2.setAvg(sungJukDTO2.getTot() / 3.0);
 		//데이터 저장
-		HelloSpring.list.add(sungJukDTO);
+		list.add(sungJukDTO2);
+		
+		System.out.println("list 후 길이 : " + list.size());
 	}
 
 }

@@ -1,12 +1,17 @@
 package sample05;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+
 
 @ComponentScan("com.conf")
 public class SungJukModify implements SungJuk {
-
+	@Autowired
+	private ArrayList<SungJukDTO2> list;
+	
 	@Override
 	public void execute() {
 		Scanner scan = new Scanner(System.in);
@@ -14,19 +19,23 @@ public class SungJukModify implements SungJuk {
 		String name = scan.next();
 		int sw=0;
 		
-		for(int i=0;i<HelloSpring.list.size();i++) {
-			if(HelloSpring.list.get(i).getName().equals(name)) {
+		for(int i=0;i<list.size();i++) {
+			if(list.get(i).getName().equals(name)) {
 				System.out.println("이름 입력 : ");
-				HelloSpring.list.get(i).setName(scan.next());
+				list.get(i).setName(scan.next());
 				System.out.println("국어 점수 입력 : ");
-				HelloSpring.list.get(i).setKor(scan.nextInt());
+				list.get(i).setKor(scan.nextInt());
 				System.out.println("영어 점수 입력 : ");
-				HelloSpring.list.get(i).setEng(scan.nextInt());
+				list.get(i).setEng(scan.nextInt());
 				System.out.println("수학 점수 입력 : ");
-				HelloSpring.list.get(i).setMath(scan.nextInt());
+				list.get(i).setMath(scan.nextInt());
+				
+				list.get(i).setTot(list.get(i).getKor() + list.get(i).getEng() + list.get(i).getMath());
+				list.get(i).setAvg(list.get(i).getTot() / 3.0);
 				sw++;
 			}
 		}
+
 		if(sw==0) {
 			System.out.println("입력하신 이름이 존재하지 않습니다.");
 		}else {
