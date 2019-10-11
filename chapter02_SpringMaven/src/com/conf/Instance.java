@@ -1,6 +1,7 @@
 package com.conf;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,8 +36,8 @@ public class Instance {
 	public SungJukDTO2 getSungJukDTO2(){
 		return new SungJukDTO2();
 	}
-	@Bean(name="arrayList")
-	public ArrayList<SungJukDTO2> getList(){
+	@Bean(name="list")
+	public List<SungJukDTO2> getList(){
 		return new ArrayList<SungJukDTO2>();
 	}
 	@Bean(name="sungJukOutput")

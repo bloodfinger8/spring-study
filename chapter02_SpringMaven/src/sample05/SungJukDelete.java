@@ -1,15 +1,19 @@
 package sample05;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan("com.conf")
 public class SungJukDelete implements SungJuk{
+	//부모객체로 받기 때문에 Qualifier를 써서 명확하게 명시해주었다
+	@Qualifier("list")
 	@Autowired
-	private ArrayList<SungJukDTO2> list;
+	private List<SungJukDTO2> list;
 	
 	@Override
 	public void execute() {
