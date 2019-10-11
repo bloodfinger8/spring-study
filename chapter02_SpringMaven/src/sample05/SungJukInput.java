@@ -19,10 +19,6 @@ public class SungJukInput implements SungJuk {
 	@Autowired
 	private SungJukDTO2 sungJukDTO2;
 	
-	public void setSungJukDTO(SungJukDTO2 sungJukDTO2) {
-		this.sungJukDTO2 = sungJukDTO2;
-	}
-	
 	@Override
 	public void execute() {
 //		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
