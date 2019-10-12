@@ -10,7 +10,7 @@ import user.service.UserService;
 public class HelloSpring {
 	public void menu(ApplicationContext context) {
 		Scanner scan = new Scanner(System.in);
-		//ApplicationContext context = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		UserService userService = null;
 		int input;
 		
 		while(true) {
@@ -23,22 +23,19 @@ public class HelloSpring {
 			System.out.println("*************");
 			input = scan.nextInt();
 			
-			UserService userService;
+			
 			if(input == 1){
 				userService = (UserService)context.getBean("userInsertService");
-				userService.execute();
 			}else if(input == 2) {
 				userService = (UserService)context.getBean("userSelectService");
-				userService.execute();
 			}else if(input == 3) {
 				userService = (UserService)context.getBean("userUpdateService");
-				userService.execute();
 			}else if(input == 4) {
 				userService = (UserService)context.getBean("userDeleteService");
-				userService.execute();
 			}else {
 				break;
 			}
+			userService.execute();
 		}
 		
 	}

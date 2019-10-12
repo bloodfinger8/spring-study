@@ -1,11 +1,12 @@
 package user.service;
 
+import java.util.Scanner;
+
 public class UserUpdateService implements UserService {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-
+		Scanner scan = new Scanner(System.in);
 	}
 
 }

@@ -35,15 +35,20 @@
 	<bean id="helloSpring" class="user.main.HelloSpring"/>
 	<!-- Insert -->
 	<bean id="userInsertService" class="user.service.UserInsertService">
-		<property name="userDTO" ref="userDTO"></property>
-		<property name="userDAO" ref="userDAOImpl"></property>
+		<property name="userDTO" ref="userDTO"/>
+		<property name="userDAO" ref="userDAOImpl"/>
 	</bean>
 	<!-- select -->
-	<bean id="userSelectService" class="user.service.UserSelectService"/>
+	<bean id="userSelectService" class="user.service.UserSelectService">
+		<property name="userDAO" ref="userDAOImpl"/>
+		<property name="userDTO" ref="userDTO"/>
+	</bean>
 	<!-- update -->
-	<bean id="userUpdateService" class="user.service.UserUpdateService"/>
+	<bean id="userUpdateService" class="user.service.UserUpdateService">
+	</bean>
 	<!-- delete -->
 	<bean id="userDeleteService" class="user.service.UserDeleteService"/>
+	
 	<!-- userDTO -->
 	<bean id="userDTO" class="user.bean.UserDTO"/>
 	<!-- userDAO -->
