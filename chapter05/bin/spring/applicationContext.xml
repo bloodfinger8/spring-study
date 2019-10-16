@@ -10,7 +10,7 @@
 		http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<bean id="dataSource" 
 		  class="org.apache.commons.dbcp2.BasicDataSource" 
@@ -21,6 +21,44 @@
 		  p:maxTotal="20"
 		  p:maxIdle="3"/>
 	
+	
+	<!-- main  -->
+	<bean id="helloSpring" class="user.main.HelloSpring"/>
+	
+	<!-- Insert -->
+	<bean id="userInsertService" class="user.service.UserInsertService">
+		<property name="userDTO" ref="userDTO"/>
+		<property name="userDAO" ref="userDAOMybatis"/>
+	</bean>
+	<!-- select -->
+	<bean id="userSelectService" class="user.service.UserSelectService">
+		<property name="userDAO" ref="userDAOMybatis"/>
+		<property name="userDTO" ref="userDTO"/>
+	</bean>
+	<!-- update -->
+	<bean id="userUpdateService" class="user.service.UserUpdateService">
+		<property name="userDAO" ref="userDAOMybatis"/>
+		<property name="userDTO" ref="userDTO"/>
+	</bean>
+	<!-- delete -->
+	<bean id="userDeleteService" class="user.service.UserDeleteService">
+		<property name="userDAO" ref="userDAOMybatis"/>
+	</bean>
+	<!-- search -->
+	<bean id="userSearchService" class="user.service.UserSearchService">
+		<property name="userDAO" ref="userDAOMybatis"/>
+	</bean>
+	
+	<!-- userDTO -->
+	<bean id="userDTO" class="user.bean.UserDTO"/>
+	<!-- userDAO -->
+	<bean id="userDAOMybatis" class="user.dao.UserDAOMybatis">
+		<property name="sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	
+	
+	
 	<!-- sqlSessionFactory -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -29,7 +67,7 @@
 	</bean>
 	
 	<!-- sqlSession -->
-	<bean id="" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	

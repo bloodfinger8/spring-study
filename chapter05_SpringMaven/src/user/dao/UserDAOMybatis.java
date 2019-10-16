@@ -4,14 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.Setter;
 import user.bean.UserDTO;
 
+// 트랜잭션 기능이 적용된 프록시 객체 생성
 @Transactional
+@Repository("userDAO")
 public class UserDAOMybatis implements UserDAO {
-	@Setter
+	@Autowired
 	private SqlSession sqlSession;
 	
 

@@ -17,7 +17,21 @@
     </plugins>
   </build>
   
+  <!-- log process -->
+  <properties>
+  	<logback.version>1.2.3</logback.version>
+  </properties>
+  
+  
   <dependencies>
+  <!-- log -->
+	<dependency>
+	    <groupId>ch.qos.logback</groupId>
+	    <artifactId>logback-classic</artifactId>
+	    <version>${logback.version}</version>
+	    <scope>runtime</scope>
+	</dependency>
+  
   <!-- Spring -->
   	<dependency>
 	    <groupId>org.springframework</groupId>

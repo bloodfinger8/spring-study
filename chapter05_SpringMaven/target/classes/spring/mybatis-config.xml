@@ -10,7 +10,4 @@
   		<typeAlias type="user.bean.UserDTO" alias="user"/>
   	</typeAliases>
   
-  	
-  
-  
   </configuration>
