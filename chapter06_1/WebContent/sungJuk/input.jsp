@@ -27,7 +27,7 @@
 			<td><input type="text" name="math"></td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center"><input type="submit"></td>
+			<td colspan="2" align="center"><input type="submit" value="계산"></td>
 		</tr>
 	</table>
 </form>

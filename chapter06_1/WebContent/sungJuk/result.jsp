@@ -13,11 +13,11 @@
 		</tr>
 		<tr>
 			<td align="center">총점</td>
-			<td><input type="text" name="tot" value="${sungJukDTO.math + sungJukDTO.eng + sungJukDTO.kor}"></td>
+			<td><input type="text" name="tot" value="${sungJukDTO.tot}"></td>
 		</tr>
 		<tr>
 			<td align="center">평균</td>
-			<td><input type="text" name="avg" value="${(sungJukDTO.math + sungJukDTO.eng + sungJukDTO.kor)/3.0}"></td>
+			<td><input type="text" name="avg" value="${sungJukDTO.avg}"></td>
 		</tr>
 		
 </table>

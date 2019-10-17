@@ -11,10 +11,7 @@
 	</bean>
 	
 	<bean id="sumController" class="com.controller.SumController">
-		<property name="sumDTO" ref="sumDTO"></property>
 	</bean>
 	
-	<bean id="sumDTO" class="com.bean.SumDTO"></bean>
-
 
 </beans>

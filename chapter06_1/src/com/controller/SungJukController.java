@@ -18,6 +18,8 @@ public class SungJukController {
 	
 	@RequestMapping(value="/sungJuk/result.do",method=RequestMethod.POST)
 	public String result(@ModelAttribute SungJukDTO sungJukDTO , Model model) { //콜백 메소드이다, 오버로드가 안된다
+		sungJukDTO.setTot(sungJukDTO.getEng() + sungJukDTO.getKor() + sungJukDTO.getMath());
+		sungJukDTO.setAvg(Double.parseDouble(String.format("%.3f", sungJukDTO.getTot() / 3.0)));
 		model.addAttribute("sungJukDTO", sungJukDTO);
 		return "/sungJuk/result";
 	}

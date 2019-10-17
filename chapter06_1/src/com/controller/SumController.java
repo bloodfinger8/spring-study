@@ -17,9 +17,6 @@ import lombok.Setter;
 
 @Controller
 public class SumController {
-	@Setter
-	private SumDTO sumDTO;
-	
 	
 //	@RequestMapping(value="/input.do",method=RequestMethod.GET)
 //	public ModelAndView input() { //콜백 메소드이다, 오버로드가 안된다
@@ -35,51 +32,43 @@ public class SumController {
 		return "/sum/input";
 	}
 	
-//	@RequestMapping(value="/result.do",method=RequestMethod.GET)
-//	public ModelAndView result(@RequestParam("x") String x, @RequestParam("y") String y) { //콜백 메소드이다, 오버로드가 안된다
+	//-----------------------------------
+//	@RequestMapping(value="/result.do", method=RequestMethod.GET)
+//	public ModelAndView result() {
 //		ModelAndView mav = new ModelAndView();
-//		sumDTO.setX(Integer.parseInt(x));
-//		sumDTO.setY(Integer.parseInt(y));
-//		mav.addObject(sumDTO);
 //		mav.setViewName("/sum/result");
 //		return mav;
 //	}
 	
-//	@RequestMapping(value="/result.do",method=RequestMethod.GET)
-//	public ModelAndView result(@RequestParam("x") int x, @RequestParam("y") int y) { //콜백 메소드이다, 오버로드가 안된다
+//	@RequestMapping(value="/result.do", method=RequestMethod.GET)
+//	public ModelAndView result(@RequestParam int x, @RequestParam int y) {
 //		ModelAndView mav = new ModelAndView();
-//		sumDTO.setX(x);
-//		sumDTO.setY(y);
-//		mav.addObject(sumDTO);
+//		mav.addObject("x", x);
+//		mav.addObject("y", y);
 //		mav.setViewName("/sum/result");
 //		return mav;
-//	} int형으로 받으면 넘버포멧 에러가 뜰수있기때문에
+//	}
 	
-	
-//	@RequestMapping(value="/result.do",method=RequestMethod.GET)
+//	@RequestMapping(value="/result.do", method=RequestMethod.GET)
 //	public ModelAndView result(@RequestParam(required=false, defaultValue="0") String x, 
-//							   @RequestParam(required=false, defaultValue="0") String y) { //콜백 메소드이다, 오버로드가 안된다
+//			                   @RequestParam(required=false, defaultValue="0") String y) {
 //		ModelAndView mav = new ModelAndView();
-//		sumDTO.setX(Integer.parseInt(x));
-//		sumDTO.setY(Integer.parseInt(y));
-//		mav.addObject(sumDTO);
+//		mav.addObject("x", x);
+//		mav.addObject("y", y);
 //		mav.setViewName("/sum/result");
 //		return mav;
 //	}
 	
-//	@RequestMapping(value="/result.do",method=RequestMethod.GET)
-//	public String result(@RequestParam Map<String, String> map  , ModelMap modelMap) { //콜백 메소드이다, 오버로드가 안된다
-//		sumDTO.setX(Integer.parseInt(map.get("x")));
-//		sumDTO.setY(Integer.parseInt(map.get("y")));
-//		modelMap.put("sumDTO", sumDTO);
+//	@RequestMapping(value="/result.do", method=RequestMethod.GET)
+//	public String result(@RequestParam Map<String,String> map, ModelMap modelMap) {
+//		modelMap.put("x", map.get("x"));
+//		modelMap.put("y", map.get("y"));
 //		return "/sum/result";
 //	}
 	
-	@RequestMapping(value="/result.do",method=RequestMethod.GET)
-	public String result(@ModelAttribute SumDTO sumDTO , Model model) { //콜백 메소드이다, 오버로드가 안된다
+	@RequestMapping(value="/result.do", method=RequestMethod.GET)
+	public String result(@ModelAttribute SumDTO sumDTO, Model model) {
 		model.addAttribute("sumDTO", sumDTO);
 		return "/sum/result";
 	}
-	
-	
 }
