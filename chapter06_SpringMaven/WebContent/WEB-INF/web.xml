@@ -3,21 +3,37 @@
   <display-name>chapter06_SpringMaven</display-name>
   
   
+  <!-- 
+   웹과 독립적인 WAC
+  default : /WEB-INF/appServlet-servlet.xml
+   -->
+   <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>/WEB-INF/root-context.xml</param-value>
+  </context-param>
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+   
+  
+  <!-- 
+  웹과 관련된 WAC
+  default : appServlet-servlet.xml
+   -->
   <servlet>
-  	<servlet-name>dispatcher</servlet-name>
+  	<servlet-name>appServlet</servlet-name>
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
   	
   	<init-param>
   		<param-name>contextConfigLocation</param-name>
-  		<param-value>/WEB-INF/mvc-config.xml</param-value>
+  		<param-value>/WEB-INF/spring/servlet-context.xml</param-value>
   	</init-param>
   </servlet>
   
   <servlet-mapping>
-  	<servlet-name>dispatcher</servlet-name>
-  	<url-pattern>*.do</url-pattern>
+  	<servlet-name>appServlet</servlet-name>
+  	<url-pattern>/</url-pattern>
   </servlet-mapping>
-  
   
   
   <welcome-file-list>
