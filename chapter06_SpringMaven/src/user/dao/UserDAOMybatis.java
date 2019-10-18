@@ -30,9 +30,8 @@ public class UserDAOMybatis implements UserDAO {
 
 	@Override
 	public UserDTO getUser(String id) {
-		 List<UserDTO> userDTO = sqlSession.selectList("userSQL.getUser" , id);
-		 
-		return userDTO.get(0);
+		 UserDTO userDTO = sqlSession.selectOne("userSQL.getUser" , id);
+		return userDTO;
 	}
 
 	@Override

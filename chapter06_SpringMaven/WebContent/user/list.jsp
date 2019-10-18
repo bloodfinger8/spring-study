@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="/chapter06_SpringMaven/main/index.do"><img src="../image/springimg.png" width="50" height="50"/></a>
+
 <table border="1" cellpadding="5" cellspacing="0">
 	<tr>
 		<th width="100">이름</th>

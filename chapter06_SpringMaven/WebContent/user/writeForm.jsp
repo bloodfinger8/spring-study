@@ -8,7 +8,7 @@
 </head>
 <body>
 <form id="writeForm" method="post" action="http://localhost:8080/chapter06_SpringMaven/user/write">
-	<table  >
+	<table>
 		<tr>
 			<td width="70" align="center">이름</td>
 			<td><input type="text" id="name" name="name"><div class="divName"></div></td>
@@ -57,6 +57,7 @@
 				success : function(){
 					alert('등록 완료');
 					//location.href='http://localhost:8080/chapter06_SpringMaven/main/index.do';
+					$(location).attr("href", "http://localhost:8080/chapter06_SpringMaven/main/index.do");
 				}
 			});
 		}

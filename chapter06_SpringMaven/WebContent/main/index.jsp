@@ -35,13 +35,13 @@
 		<td><a id="mainA" href="/chapter06_SpringMaven/user/writeForm.do">입력</a></td>
 	</tr>
 	<tr>
-		<td><a id="mainA" href="../user/list.do">출력</a></td>
+		<td><a id="mainA" href="../user/list">출력</a></td>
 	</tr>
 	<tr>
-		<td><a id="mainA" href="/chater06_SpringMaven/">수정</a></td>
+		<td><a id="mainA" href="../user/modifyForm">수정</a></td>
 	</tr>
 	<tr>
-		<td><a id="mainA" href="/chater06_SpringMaven/">삭제</a></td>
+		<td><a id="mainA" href="../user/deleteForm">삭제</a></td>
 	</tr>
 </table>
 </body>
