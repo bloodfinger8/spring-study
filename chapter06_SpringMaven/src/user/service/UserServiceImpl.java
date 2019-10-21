@@ -39,6 +39,18 @@ public class UserServiceImpl implements UserService {
 		userDAO.userDelete(id);
 	}
 
+	@Override
+	public UserDTO checkId(String id) {
+		return userDAO.checkId(id);
+	}
+
+	@Override
+	public List<UserDTO> search(Map<String, String> map) {
+		return userDAO.search(map);
+	}
+
+
+
 	
 	
 	

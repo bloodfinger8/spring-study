@@ -12,5 +12,7 @@ public interface UserDAO {
 	public void getModify(UserDTO userDTO);
 	public int userDelete(String id);
 	public List<UserDTO> getSearch(Map<String, String> map);
+	public UserDTO checkId(String id);
+	public List<UserDTO> search(Map<String, String> map);
 }
 

@@ -52,5 +52,15 @@ public class UserDAOMybatis implements UserDAO {
 		return list;
 	}
 
+	@Override
+	public UserDTO checkId(String id) {
+		return sqlSession.selectOne("userSQL.checkId" , id);
+	}
+
+	@Override
+	public List<UserDTO> search(Map<String, String> map) {
+		return sqlSession.selectList("userSQL.search" , map);
+	}
+
 }
 

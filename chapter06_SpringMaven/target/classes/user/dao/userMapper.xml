@@ -29,4 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from usertable where ${key} like '%'||#{value}||'%' 
 	</select>
 	
+	<select id="checkId" parameterType="String" resultType="user">
+		select * from usertable where id = #{id}
+	</select>
+	
+	<select id="search" parameterType="java.util.Map" resultType="user">
+		select * from usertable where ${k} like '%'|| #{v} ||'%'
+	</select>
+	
+	
 </mapper>

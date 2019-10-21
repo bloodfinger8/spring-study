@@ -11,7 +11,6 @@
 	
 	
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<!-- <property name="viewClass" value=""/> -->
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
@@ -27,7 +26,14 @@
 		<property name="order" value="0"/>
 	</bean>
 
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven>
+		<!-- mvc:annotation-driven/ 많은 값들이 자동으로 추가된다.
+		<mvc:message-converters>
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+		</mvc:message-converters> -->
+	</mvc:annotation-driven>
 	<mvc:resources mapping="/image/**" location="/image/" />
+
+	
 </beans>
 

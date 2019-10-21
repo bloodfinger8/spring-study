@@ -67,6 +67,33 @@
 		$('div').empty();
 	});
 	
+	$('#id').focusout(function(){
+		$('.divId').empty();
+		
+		if($('#id').val()==''){
+			$('.divId').html("<span style='color:red; font-size:7px;'>아이디를 입력하시오2</span>");
+		}else{
+			$.ajax({
+				type : 'post',
+				url : '/chapter06_SpringMaven/user/checkId',
+				data : 'id=' + $('#id').val(),
+				dataType : 'text',
+				success : function(data){
+					if(data == 'exist'){
+						$('.divId').html("<span style='color:red; font-size:7px;'> 아이디 이미 존재 합니다</span>");
+					}else if(data == 'not_exist'){
+						$('.divId').html("<span style='color:blue; font-size:7px;'> 아이디 가능</span>");
+					}
+					
+				},
+				error : function(err){
+					console.log(err);
+					alert('error');
+				}
+			}); 
+		}
+		
+	});
 </script>
 
 </html>
