@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,12 +15,12 @@ td,option{font-size: 8pt;}
 </style>
 </head>
 <body>
-<form name="checkPostForm" method="post" action="/miniproject/member/checkPost.do">
+<form name="checkPostForm" id="checkPostForm" method="post" >
 		<table border="2" cellspacing="0" cellpadding="5" width="100%">
 			<tr>
 				<td width="70" align="center">시</td>
 				<td><select name="sido">
-		    		<option value=""selected="selected">서울</option>
+		    		<option value="서울"selected="selected">서울</option>
 					<option value="인천">인천</option>
 					<option value="대전">대전</option>
 					<option value="대구">대구</option>
@@ -44,14 +43,14 @@ td,option{font-size: 8pt;}
 			</tr>
 			<tr>
 				<td align="center">도로명</td>
-				<td colspan="3"><input type="text" name="roadname" size="50%" >
-				<input type="submit" value="검색"></td>
+				<td colspan="3"><input type="text" id="roadname" name="roadname" size="50%" >
+				<input type="button" id="searchPostBtn" value="검색"></td>
 			</tr>
 			<tr>
 				<td align="center">우편번호</td>
 				<td colspan="3" > 주소</td>
 			</tr>
-			<c:if test="${list!=null }">
+			<%-- <c:if test="${list!=null }">
 				<c:forEach items="${list }" var="zipcodeDTO">
 					<c:set var="address">
 						${zipcodeDTO.sido} ${zipcodeDTO.sigungu} ${zipcodeDTO.yubmyundong} ${zipcodeDTO.ri} ${zipcodeDTO.roadname} ${zipcodeDTO.buildingname}
@@ -63,9 +62,11 @@ td,option{font-size: 8pt;}
 						</td> 
 					</tr>
 				</c:forEach>
-			</c:if>
+			</c:if> --%>
+			<tbody id="jusoTbody"></tbody>
 		</table>
 </form>
 </body>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="../js/member.js" type="text/javascript"> </script>
 </html>

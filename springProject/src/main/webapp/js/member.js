@@ -2,32 +2,106 @@
  * 
  */
 $('#loginBtn').on("click" , function(){
-	$('#idDiv').empty();
-	$('#pwdDiv').empty();
+	$('#loginIdDiv').empty();
+	$('#loginPwdDiv').empty();
 	
-	if($('#id').val()==''){
-		$('#idDiv').html("<span style='color:red; font-size:7px;'>아이디를 입력하시오</span>");
-		$('#id').focus();
-	}else if($('#pwd').val()==''){
-		$('#pwdDiv').html("<span style='color:red; font-size:7px;'>비밀번호를 입력하시오</span>");
-		$('#pwd').focus();
+	if($('#loginId').val()==''){
+		$('#loginIdDiv').html("<span style='color:red; font-size:7px;'>아이디를 입력하시오</span>");
+		$('#loginId').focus();
+	}else if($('#loginPwd').val()==''){
+		$('#loginPwdDiv').html("<span style='color:red; font-size:7px;'>비밀번호를 입력하시오</span>");
+		$('#loginPwd').focus();
 	}else{
 		$.ajax({
 			type : 'post',
 			url : '/springProject/member/login',
 			data : $('#loginForm').serialize(),
-			success : function(){
-				//location.href='http://localhost:8080/chapter06_SpringMaven/main/index.do';
-				//$(location).attr("href", "http://localhost:8080/chapter06_SpringMaven/main/index.do");
+			dataType : 'text',
+			success : function(data){
+				if(data == 'success'){
+					$(location).attr("href", "http://localhost:8080/springProject/main/index");
+				}else if(data == 'fail'){
+					$('#loginResultDiv').html("<span style='color:red; font-size:9px;'>로그인 실패</span>");
+				}
 			},
-			error : function(){
-				alert('error');
+			error : function(e){
+				console.log(e);
 			}
 		});
 	}
 	
 });
 
+$('#writeId').focusout(function(){
+	$('#checkIdSpan').empty();
+	
+	if($('#writeId').val()==''){
+		$('#checkIdSpan').html("<span style='color:red; font-size:9px;'>아이디를 입력하세요 </span>")
+	}else{
+		$.ajax({
+			type : 'post',
+			url : '/springProject/member/checkId',
+			data : $('#writeForm').serialize(),
+			dataType : 'text',
+			success : function(data){
+				if(data == 'success'){
+					$('#checkIdSpan').html("<span style='color:red; font-size:9px;'>이미 아이디를 존재합니다 </span>")
+				}else if(data == 'fail'){
+					$('#checkIdSpan').html("<span style='color:blue; font-size:9px;'>사용 가능 아이디 </span>")
+				}
+			},
+			error : function(err){
+				console.log(err);
+			}
+			
+		});
+	}
+});
+
+
+$('#checkPostBtn').on('click' , function(){
+	window.open("/springProject/member/checkPost.jsp","","width=580 height=500 scrollbars=yes ");
+});
+
+$(document).on("click","#searchPostBtn",function(){
+	$.ajax({
+		type : 'post',
+		url : '/springProject/member/getZipcodeList',
+		data : $('#checkPostForm').serialize(),
+		dataType : 'json',
+		success : function(data){
+			$.each(data['list'], function(key, value){
+				$('#jusoTbody').append('<tr>' +
+									  '<td><div id="z'+ key +'">'+value.zipcode+'</div></td>' + 
+									  '<td colspan="3"><a id="addressA">'+value.sido+" "+
+									  		 value.yubmyundong+" "+
+									  		 value.ri+" "+
+									  		 value.roadname+" "+
+									  		 value.buildingname+
+									  '</a></td>' + 
+									  '</tr>');
+			});
+		},
+		error : function(){
+			alert('error');
+		}
+	});
+});
+
+//$(document).on("click","#addressA",function(){
+//	opener.document.getElementById('daum_zipcode').value = $('#').val();
+//	opener.document.getElementById('daum_addr1').value = 'sd';
+//	window.close();
+//	opener.document.getElementById('daum_addr2').focus();
+//});
+//function checkPostClose(zipcode,address){
+////	opener.document.getElementById('daum_zipcode').value = zipcode;
+////	opener.document.getElementById('daum_addr1').value = address;
+////	window.close();
+////	opener.document.getElementById('daum_addr2').focus();
+//	
+	
+//}
 
 //function checkWrite() { //유효성 검사 
 //		if (document.writeForm.name.value == "") {
@@ -57,47 +131,14 @@ $('#loginBtn').on("click" , function(){
 //	opener.writeForm.pwd.focus();
 //}
 //
-//function checkId(){ //id 중복 확인
-//	var sId = document.writeForm.id.value;
-//	if(sId==""){
-//		alert("먼저 ID입력하세요");
-//	}else{
-//		window.open("/miniproject/member/checkId.do?id="+sId,
-//				"",
-//				"width=500 height=300 left=250 top=200");
-//	}
-//	
-//}
 //
 //function checkGender(){
 //	var sid = document.modifyForm.gendercheck.value;
 //}
 //
 //
-//function checkPost(){ //우편주소 확인
-//	window.open("/miniproject/member/checkPost.jsp","","width=500 height=500 scrollbars=yes "); //크롬은 스크롤이 있지만 익스플로러는 없다.
-//}
+
 //
-//function checkPostClose(zipcode,address){
-////	opener.document.getElementById('daum_zipcode').value = zipcode;
-////	opener.document.getElementById('daum_addr1').value = address;
-////	window.close();
-////	opener.document.getElementById('daum_addr2').focus();
-//	
-//	opener.document.forms[0].zipcode.value = zipcode;
-//	opener.document.forms[0].addr1.value = address;
-//	window.close();
-//	opener.document.forms[0].addr2.focus();
-//}
-//
-//function checkLogin() { //유효성 검사 
-//	if (document.loginForm.id.value == "") 
-//		alert("아이디를 입력하시오");
-//	else if (document.loginForm.pwd.value == "") 
-//		alert("비밀번호를 입력하시오");
-//	else 
-//		document.loginForm.submit();
-//}
 //
 //function checkModify(){
 //	if (document.modifyForm.id.value == ""){ 

@@ -17,10 +17,6 @@ public class MemberDAOMybatis implements MemberDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	@Override
-	public int write(MemberDTO memberDTO) {
-		return 0;
-	}
 
 	@Override
 	public MemberDTO login(Map<String, String> map) {
@@ -28,23 +24,13 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 	@Override
-	public boolean isExistId(String id) {
-		return false;
-	}
-
-	@Override
-	public MemberDTO getMember(String id) {
-		return null;
+	public MemberDTO isExistId(String id) {
+		return sqlSession.selectOne("memberSQL.isExistId", id);
 	}
 
 	@Override
 	public List<ZipcodeDTO> getZipcodeList(Map<String, String> map) {
-		return null;
-	}
-
-	@Override
-	public int modify(MemberDTO memberDTO) {
-		return 0;
+		return sqlSession.selectList("memberSQL.getZipcodeList" , map);
 	}
 
 }

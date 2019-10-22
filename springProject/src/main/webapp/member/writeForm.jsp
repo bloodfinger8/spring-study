@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-	<form name="writeForm" method="post" action="/miniproject/member/write.do">
+	<form name="writeForm" id="writeForm" method="post" action="/miniproject/member/write.do">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th width="80">이름</th>
@@ -9,8 +9,8 @@
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text"  name="id">
-				<input type="button" value="중복체크" onclick="checkId()">
+				<td><input type="text" id="writeId" name="id">
+				<span id="checkIdSpan"></span>
 				<input type="hidden" name="check" value="">
 				</td>
 			</tr>
@@ -52,7 +52,7 @@
 			<tr>
 				<th rowspan="3">주소</th>
 				<td><input type="text" name="zipcode" id="daum_zipcode"  size="10" readonly> 
-				<input type="button" value="우편번호검색" onclick="checkPost()"></td>
+				<input type="button" id="checkPostBtn" value="우편번호검색" ></td>
 			</tr>
 
 			<tr>
@@ -71,4 +71,5 @@
 			</tr>
 		</table>
 	</form>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="../js/member.js" type="text/javascript"> </script>

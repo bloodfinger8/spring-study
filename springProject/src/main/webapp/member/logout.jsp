@@ -4,6 +4,6 @@
 <script type="text/javascript">
 window.onload=function(){
 	alert("로그아웃");
-	location.href="/miniproject/main/index.do";
+	location.href="/springProject/main/index";
 }
 </script>
