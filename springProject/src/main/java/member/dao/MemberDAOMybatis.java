@@ -24,13 +24,18 @@ public class MemberDAOMybatis implements MemberDAO {
 	}
 
 	@Override
-	public MemberDTO isExistId(String id) {
-		return sqlSession.selectOne("memberSQL.isExistId", id);
+	public MemberDTO checkId(String id) {
+		return sqlSession.selectOne("memberSQL.checkId", id);
 	}
 
 	@Override
 	public List<ZipcodeDTO> getZipcodeList(Map<String, String> map) {
 		return sqlSession.selectList("memberSQL.getZipcodeList" , map);
+	}
+
+	@Override
+	public void write(MemberDTO memberDTO) {
+		sqlSession.insert("memberSQL.write", memberDTO);
 	}
 
 }

@@ -19,8 +19,9 @@ td,option{font-size: 8pt;}
 		<table border="2" cellspacing="0" cellpadding="5" width="100%">
 			<tr>
 				<td width="70" align="center">시</td>
-				<td><select name="sido">
-		    		<option value="서울"selected="selected">서울</option>
+				<td><select id="sido" name="sido">
+					<option >시도선택</option>
+		    		<option value="서울">서울</option>
 					<option value="인천">인천</option>
 					<option value="대전">대전</option>
 					<option value="대구">대구</option>
@@ -39,7 +40,7 @@ td,option{font-size: 8pt;}
 					<option value="제주">제주</option>
 				</select></td>
 				<td width="70">시.군.구</td>
-				<td><input type="text" name="sigungu"></td>
+				<td><input type="text" id="sigungu" name="sigungu"></td>
 			</tr>
 			<tr>
 				<td align="center">도로명</td>
@@ -50,19 +51,6 @@ td,option{font-size: 8pt;}
 				<td align="center">우편번호</td>
 				<td colspan="3" > 주소</td>
 			</tr>
-			<%-- <c:if test="${list!=null }">
-				<c:forEach items="${list }" var="zipcodeDTO">
-					<c:set var="address">
-						${zipcodeDTO.sido} ${zipcodeDTO.sigungu} ${zipcodeDTO.yubmyundong} ${zipcodeDTO.ri} ${zipcodeDTO.roadname} ${zipcodeDTO.buildingname}
-					</c:set>
-					<tr>
-						<td align="center">${zipcodeDTO.zipcode }</td> 
-						<td colspan="3">
-							<a id="addressA" href="#" onclick="checkPostClose('${zipcodeDTO.zipcode } ','${address }')">${address }</a>
-						</td> 
-					</tr>
-				</c:forEach>
-			</c:if> --%>
 			<tbody id="jusoTbody"></tbody>
 		</table>
 </form>

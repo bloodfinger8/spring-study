@@ -22,6 +22,8 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<context:component-scan base-package="main.controller"/>
 	<context:component-scan base-package="member.controller"/>
+	
+	<context:component-scan base-package="board.controller"/>
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
 
@@ -29,7 +31,7 @@
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources location="/image/" mapping="/image/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
-
+	<mvc:resources location="/css/" mapping="/css/**"/>
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

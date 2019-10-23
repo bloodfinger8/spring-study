@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.omg.CORBA.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,9 +49,9 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/logout" , method=RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public ModelAndView logout(HttpSession session) {
 		session.invalidate();
-		return "/member/logout";
+		return new ModelAndView("redirect:/main/index");
 	}
 	
 	@RequestMapping(value="/member/writeForm" , method=RequestMethod.GET)
@@ -60,10 +62,18 @@ public class MemberController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/member/write", method=RequestMethod.POST)
+	public String write(@ModelAttribute MemberDTO memberDTO, Model model) {
+		memberService.write(memberDTO);
+		
+		model.addAttribute("display", "/member/write.jsp");
+		return "/main/index";
+	}
+	
 	@RequestMapping(value="/member/checkId" , method=RequestMethod.POST)
 	@ResponseBody
 	public String checkId(@RequestParam String id) {
-		MemberDTO memberDTO = memberService.isExistId(id);
+		MemberDTO memberDTO = memberService.checkId(id);
 		if(memberDTO == null) {
 			return "fail"; //아이디가 존재하지 않을때
 		}else {
@@ -72,21 +82,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/getZipcodeList" , method=RequestMethod.POST)
-	public ModelAndView getZipcodeList(@RequestParam String sido,
-									   @RequestParam String sigungu,
-									   @RequestParam String roadname) {
+	public ModelAndView getZipcodeList(@RequestParam Map<String, String> map) {
+		List<ZipcodeDTO> list = memberService.getZipcodeList(map);
 		
-		System.out.println(sido + " " + sigungu + " " + roadname);
 		ModelAndView mav = new ModelAndView();
-		
-		List<ZipcodeDTO> list = null;
-		if(sido != "" && roadname!= ""){ //데이터가 없으면 못가게 한다
-			Map<String, String> map = new HashMap<String, String>();
-			map.put("sido", sido);
-			map.put("sigungu", sigungu);
-			map.put("roadname", roadname);
-			list = memberService.getZipcodeList(map);
-		}
 		mav.addObject("list", list);
 		mav.setViewName("jsonView");
 		return mav;

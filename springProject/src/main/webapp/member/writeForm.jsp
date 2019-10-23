@@ -1,26 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-	<form name="writeForm" id="writeForm" method="post" action="/miniproject/member/write.do">
+	<form name="writeForm" id="writeForm" method="post" action="/springProject/member/write">
 		<table border="1" cellspacing="0" cellpadding="5">
 			<tr>
 				<th width="80">이름</th>
-				<td width="320"><input type="text" name="name"></td>
+				<td width="320"><input type="text" id="name" name="name"><div id="nameDiv"></div></td>
 			</tr>
 			<tr>
 				<th>아이디</th>
-				<td><input type="text" id="writeId" name="id">
+				<td><input type="text" id="id" name="id">
 				<span id="checkIdSpan"></span>
-				<input type="hidden" name="check" value="">
+				<input type="hidden" id="check" name="check" value=""> 
+				<!-- hidden은 중복체크를 위해 존재한다  -->
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><input type="password" name="pwd"></td>
+				<td><input type="password" id="pwd" name="pwd"><div id="pwdDiv"></div></td>
 			</tr>
 			<tr>
 				<th>재확인</th>
-				<td><input type="password" name="repwd"></td>
+				<td><input type="password" id="repwd" name="repwd"><div id="repwdDiv"></div></td>
 			</tr>
 			<tr>
 				<th>성별</th>
@@ -54,18 +55,16 @@
 				<td><input type="text" name="zipcode" id="daum_zipcode"  size="10" readonly> 
 				<input type="button" id="checkPostBtn" value="우편번호검색" ></td>
 			</tr>
-
 			<tr>
 				<td><input type="text" name="addr1" id="daum_addr1" placeholder="주소" size="40" readonly></td>
 			</tr>
-
 			<tr>
 				<td><input type="text" name="addr2" id="daum_addr2" placeholder="상세주소" size="40"></td>
 			</tr>
  
 			<tr>
 				<th colspan="2" align="center">
-				<input type="button"value="회원가입" onclick="checkWrite()"> 
+				<input type="button" id="writeBtn" value="회원가입"> 
 				<input type="reset" value="다시작성">
 				</th>
 			</tr>

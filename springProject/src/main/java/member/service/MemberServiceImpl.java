@@ -22,13 +22,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberDTO isExistId(String id) {
-		return memberDAO.isExistId(id);
+	public MemberDTO checkId(String id) {
+		return memberDAO.checkId(id);
 	}
 
 	@Override
 	public List<ZipcodeDTO> getZipcodeList(Map<String, String> map) {
 		return memberDAO.getZipcodeList(map);
+	}
+
+	@Override
+	public void write(MemberDTO memberDTO) {
+		memberDAO.write(memberDTO);
 	}
 
 }
