@@ -14,6 +14,6 @@ Spring mvc project</h3>
 		</c:if>
 	<a href="/springProject/imageboard/imageboardList?pg=1">이미지게시판</a>&emsp;
 </c:if>
-<a href="/springProject/board/boardList?pg=1">게시판</a>&emsp;
+<a href="/springProject/board/boardList">게시판</a>&emsp;
 
 </font>

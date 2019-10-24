@@ -25,6 +25,27 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.writeAll(map);
 	}
 
+	@Override
+	public int getTotalA() {
+		return boardDAO.getTotalA();
+	}
+
+	@Override
+	public BoardDTO getBoard(int boardSeq) {
+		return boardDAO.getBoard(boardSeq);
+	}
+
+	@Override
+	public void boardDelete(int seq) {
+		boardDAO.boardDelete(seq);
+	}
+
+	@Override
+	public void boardModify(Map<String, String> map) {
+		boardDAO.boardModify(map);
+	}
+
+
 
 	
 	

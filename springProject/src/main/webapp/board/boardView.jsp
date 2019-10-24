@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <style type="text/css">
 pre {
@@ -11,7 +10,6 @@ pre {
 </style>
 
 <form name="boardViewForm" method="post" action="">
-<c:if test="${boardDTO != null }">
 <table border="1" width="400" height="400" cellspacing="0" cellpadding="15">
 			<tr>
 				<td colspan="3"><h3>${boardDTO.subject }</h3></td>
@@ -28,16 +26,30 @@ pre {
 			
 			<tr>
 				<td colspan="3" >
-				<input type="button" value="목록" onclick="location.href='/miniproject/board/boardList.do?pg=${pg}'">
-				<input type="button" value="답글" onclick="location.href='/miniproject/board/boardReplyForm.do?pg=${pg}&pseq=${boardDTO.seq}'">
+				<input type="button" value="목록" onclick="location.href='/springProject/board/boardList?pg=${pg}'">
+				<input type="button" value="답글" onclick="location.href='/springProject/board/boardReplyForm?pg=${pg}&pseq=${boardDTO.seq}'">
 				 				
-				<c:if test="${sessionScope.memId == boardDTO.id }">
-					<input type="button" value="글수정" onclick="location.href='boardModifyForm.do?pg=${pg}&seq=${boardDTO.seq}'">
-					<input type="button" value="글삭제" onclick="location.href='boardDelete.do?seq=${boardDTO.seq}'" >
-				</c:if>
+					<input type="button" value="글수정" onclick="location.href='boardModifyForm?pg=${pg}&seq=${boardDTO.seq}'">
+					<input type="button" value="글삭제" onclick="location.href='boardDelete?seq=${boardDTO.seq}'" >
 				</td>
 			</tr>
 	</table>
-</c:if>
-
 </form>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	/* $.ajax({
+		type : 'post',
+		url : '/springProject/board/boardView',
+		data : 'seq='+${seq},
+		success : function(){
+			alert('success');
+			
+		},
+		error : function(err){
+			console.log(err);
+			alert('error');
+		}
+	}); */
+});
+</script>

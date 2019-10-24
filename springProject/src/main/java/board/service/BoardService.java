@@ -12,5 +12,19 @@ public interface BoardService {
 
 
 	public List<BoardDTO> writeAll(Map<String, Integer> map);
+
+
+	public int getTotalA();
+
+
+	public BoardDTO getBoard(int boardSeq);
+
+
+	public void boardDelete(int seq);
+
+
+	public void boardModify(Map<String, String> map);
+
+	
 	
 }

@@ -24,7 +24,7 @@ from board order by ref desc, step asc)tt)
 where rn<![CDATA[>=]]> #{startNum} and rn <![CDATA[<=]]> #{endNum}
 </select>
 
-<select id="getTotalA" resultType="java.lang.Integer">
+<select id="getTotalA" resultType="Integer">
 select count(*) from board
 </select>
 

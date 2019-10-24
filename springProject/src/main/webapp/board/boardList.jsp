@@ -3,7 +3,7 @@
 
 <link rel="stylesheet" href="../css/boardList.css">
 
-<table border="1"  width="700" frame="hsides" rules="rows" cellspacing="0" cellpadding="15">
+<table id="boardListTable" border="1"  width="600" frame="hsides" rules="rows" cellspacing="0" cellpadding="5">
 			<tr>
 				<td>글번호</td>
 				<td>제목</td>
@@ -14,16 +14,14 @@
 			
 			<tbody id="inputList">
 			</tbody>
-			<input type="hidden" id="pgInput" name="pgInput" value="${param.pg}">
 			
 			<tr>
-			<td colspan="5" align="center" id="paging">
-			<%-- ${boardPaging.pagingHTML } --%>
-			</td> 
+				<td colspan="5" align="center" id="boardPaging"></td> 
 			</tr>
 	</table>
-
-<%-- <form name="" method="post" action="">	
+<input type="hidden" id="pgInput" name="pgInput" value="${pg}">
+			
+<form name="" method="post" action="">	
 	<div style=" padding-top:30px; width: 700px; text-align:center; ">
 	<input type="hidden" name="pg" value="1">
 	<select name="searchOption" id="searchOption">
@@ -34,7 +32,7 @@
 	<input type="text"  name="keyword" value="${keyword }" placeholder="검색어를 입력해주세요">
 	<input type="submit" value="검색">
 	</div>
-</form> --%>
+</form> 
 
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="../js/board.js"></script>
