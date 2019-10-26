@@ -94,10 +94,13 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/boardView" , method=RequestMethod.GET)
 	public ModelAndView boarView(@RequestParam String seq,
-								 @RequestParam String pg) {
+								 @RequestParam String pg,
+								 HttpSession session) {
 		BoardDTO boardDTO= boardService.getBoard(Integer.parseInt(seq));
+		String id = (String) session.getAttribute("memId");
 		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("memId" , id);
 		mav.addObject("seq" , Integer.parseInt(seq));
 		mav.addObject("pg" , Integer.parseInt(pg));
 		mav.addObject("boardDTO", boardDTO);
@@ -151,10 +154,62 @@ public class BoardController {
 		return new ModelAndView("redirect:/board/boardList");
 	}
 	
-//	@RequestMapping(value="/board/boardDelete" , method=RequestMethod.GET)
-//	public void boardModify(@RequestParam String ) {
-//		
-//	}
+	@RequestMapping(value="/board/boardSearch" , method=RequestMethod.POST)
+	public ModelAndView boardSearch(@RequestParam Map<String, String> map) {
+		
+		int endNum = Integer.parseInt(map.get("pg"))*5;
+		int startNum = endNum -4;
+		
+		map.put("startNum", startNum+"");
+		map.put("endNum", endNum+"");
+		
+		List<BoardDTO> list =boardService.boardSearch(map);
+		
+		//검색된 리스트의 페이징처리
+		int totalA = boardService.getSearchTotalA(map);
+		boardPaging.setCurrentPage(Integer.parseInt(map.get("pg")));
+		boardPaging.setPageBlock(3);
+		boardPaging.setPageSize(5);
+		boardPaging.setTotalA(totalA);
+		boardPaging.makeSearchPagingHTML();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("searchOption" , map.get("searchOption"));
+		mav.addObject("keyword" , map.get("keyword"));
+		mav.addObject("boardPaging" , boardPaging);
+		mav.addObject("list",list);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	@RequestMapping(value="/board/boardReplyForm" , method=RequestMethod.GET)
+	public ModelAndView boardReplyForm(@RequestParam Map<String, String> map) {
+		System.out.println("pg = " + Integer.parseInt(map.get("pg")) + " , pseq = " + Integer.parseInt(map.get("pseq")));
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg", Integer.parseInt(map.get("pg")));
+		mav.addObject("pseq",Integer.parseInt(map.get("pseq")));
+		mav.addObject("display","/board/boardReplyForm.jsp");
+		mav.setViewName("/main/index");
+		return mav;
+	}
+	
+	@RequestMapping(value="/board/boardReply" , method=RequestMethod.POST)
+	public void boardReply(@RequestParam Map<String, String> map,
+										 HttpSession session) {
+		
+		String id = (String)session.getAttribute("memId");
+		String name =(String)session.getAttribute("memName");
+		String email = (String)session.getAttribute("memEmail");
+		
+		map.put("id", id);
+		map.put("name", name);
+		map.put("email", email);
+		
+		boardService.boardReply(map);
+		
+		
+		
+	}
 	
 	
 	

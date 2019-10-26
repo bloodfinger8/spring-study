@@ -52,6 +52,39 @@ public class BoardDAOMybatis implements BoardDAO {
 	public int boardModify(Map<String, String> map) {
 		return sqlSession.update("boardSQL.boardModify" , map);
 	}
+
+
+	@Override
+	public List<BoardDTO> boardSearch(Map<String, String> map) {
+		return sqlSession.selectList("boardSQL.boardSearch" , map);
+	}
+
+
+	@Override
+	public int getSearchTotalA(Map<String, String> map) {
+		return sqlSession.selectOne("boardSQL.getSearchTotalA",map);
+	}
+
+
+	@Override
+	public void boardReply(Map<String, String> map) {
+		
+		//BoardDTO pDTO = getBoard(boardDTO.getPseq());
+		BoardDTO pDTO = getBoard(Integer.parseInt(map.get("pseq")));
+		sqlSession.update("boardSQL.boardReply1", pDTO);
+		//insert
+//		boardDTO.setRef(pDTO.getRef()); //원글ref
+//		boardDTO.setLev(pDTO.getLev()+1);//원글lev + 1 
+//		boardDTO.setStep(pDTO.getStep()+1);//원글step + 1
+		map.put("ref", pDTO.getRef()+"");
+		map.put("lev", (pDTO.getLev()+1)+"");
+		map.put("step", (pDTO.getStep()+1)+"");
+		
+		sqlSession.insert("boardSQL.boardReply2", map);
+		//reply update
+		sqlSession.update("boardSQL.boardReply3", Integer.parseInt(map.get("pseq")));
+		
+	}
 	
 
 	

@@ -25,6 +25,15 @@ public interface BoardService {
 
 	public void boardModify(Map<String, String> map);
 
+
+	public List<BoardDTO> boardSearch(Map<String, String> map);
+
+
+	public int getSearchTotalA(Map<String, String> map);
+
+
+	public void boardReply(Map<String, String> map);
+
 	
 	
 }

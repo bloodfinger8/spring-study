@@ -1,6 +1,3 @@
-/**
- * 
- */
 $('#boardWriteBtn').on("click" , function(){
 	if($('#subject').val() == ''){
 	}else if($('#content').val() == ''){
@@ -21,65 +18,8 @@ $('#boardWriteBtn').on("click" , function(){
 	}
 });
 
-$(document).ready(function(){
-	$.ajax({
-		type : 'post' ,
-		url : '/springProject/board/writeAll',
-		data : 'pg='+$('#pgInput').val(),
-		dataType : 'json',
-		success : function(data){
-			$.each(data['list'], function(key, value){
-//				$('#inputList').append('<tr>' +
-//									  '<td>'+value.seq+'</td>' + 
-//									  '<td>'+value.content+'</td>' + 
-//									  '<td>'+value.id+'</td>' + 
-//									  '<td>'+value.logtime+'</td>' +
-//									  '<td>'+value.hit+'</td>'+
-//									  '</tr>');
-				$('<tr/>').append($('<td/>',{
-					align: 'center',
-					text : value.seq
-				})).append($('<td/>',{
-					
-				}).append($('<a/>',{
-						href : 'javascript:void(0)',
-						id : 'subjectA',
-						text : value.subject ,
-						class : value.seq
-				})) ).append($('<td/>',{
-					align: 'center',
-					text : value.id
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.logtime
-				})).append($('<td/>',{
-					align: 'center',
-					text : value.hit
-				})).appendTo($('#inputList'));
-			});
-			//페이징 처리
-			$('#boardPaging').html(data.boardPaging.pagingHTML);
-			
-			//로그인 여부
-			$('#boardListTable').on('click' ,'#subjectA' , function(){
-				if(data.memId == null){
-					alert('로그인 해라');
-				}else{
-					var seq = $(this).parent().prev().text();
-					//alert($(this).attr('class')); 이렇게 사용해도 된다
-					$(location).attr("href", "http://localhost:8080/springProject/board/boardView?seq="+seq+"&pg="+$('#pgInput').val());
-				}
-			});
-			
-			
-		},
-		error : function(err){
-			console.log(err);
-		}
-	});
-	
-});
 
+//게시글 수정
 $('#boardModifyBtn').on("click" , function(){
 	if($('#modifySubject').val() == '' ){
 	}else if($('#modifyContent').val() == ''){
@@ -100,6 +40,85 @@ $('#boardModifyBtn').on("click" , function(){
 	}
 });
 
+//검색
+$('#boardSearchBtn').on("click" , function(event , str){
+	if(str != 'trigger'){
+		$('input[name=pg]').val(1);
+	}
+	
+	if($('input[name=keyword]').val() == ''){
+		alert('검색단어 넣으세요');
+	}else{
+		$.ajax({
+			type : 'post',
+			url : '/springProject/board/boardSearch',
+			data : $('#boardSearchForm').serialize(),
+			dataType : 'json',
+			success : function(data){
+				alert(JSON.stringify(data));
+				
+				$('#boardListTable tr:gt(0)').remove();
+				
+				$.each(data.list, function(index,items){
+					$('<tr/>').append($('<td/>',{
+						align: 'center',
+						text: items.seq
+					})).append($('<td/>',{
+						
+						}).append($('<a/>',{
+							href: 'javascript:void(0)',
+							text: items.subject,
+							id: 'subjectA',
+							class: items.seq+''
+						
+					}))).append($('<td/>',{
+						align: 'center',
+						text: items.id
+					})).append($('<td/>',{
+						align: 'center',
+						text: items.logtime
+					})).append($('<td/>',{
+						align: 'center',
+						text: items.hit
+					})).appendTo($('#boardListTable'));
+				});
+				
+				//검색될 결과의 페이징 처리
+				$('#boardPaging').html(data.boardPaging.pagingHTML);
+				
+			},
+			error : function(err){
+				console.log(err);
+			}
+		});
+	}
+});
+
+//답글
+$('#boardReplyBtn').on('click' , function(){
+	if($('#boardReplySubject').val() == '' ){
+		alert('제목을 입력하세요');
+	}else if($('#boardReplyCotent').val() == ''){
+		alert('내용을 입력하세요');
+	}else{
+		alert($('#boardReplyForm').serialize());
+		$.ajax({
+			type : 'post',
+			url : '/springProject/board/boardReply',
+			data : $('#boardReplyForm').serialize(),
+			success : function(data){
+				
+				alert('답글 등록');
+				
+				
+			},
+			error : function(err){
+				console.log(err);
+			}
+		
+		});
+	}
+});
 //function checkBoard(){
 //	if (document.getElementById("subject").value == ""){ 
 //		alert("제목을 입력하시오");
@@ -129,11 +148,15 @@ $('#boardModifyBtn').on("click" , function(){
 //		document.getElementById('searchOption').value = '${searchOption}';
 //}
 //
-//function boardSearch(pg){
-//	location.href="/miniproject/board/boardSearch.do?pg="+pg
+
+//BoardPaging -makeSearchPagingHTML 메소드의 함수
+function boardSearch(pg){
+//	location.href="/springProject/board/boardSearch?pg="+pg
 //			+"&searchOption=${searchOption}"
 //			+"&keyword=${keyword}";
-//}
+	$('input[name=pg]').val(pg);
+	$('#boardSearchBtn').trigger('click','trigger');
+}
 
 //
 //function isLogin(memId,seq,pg){

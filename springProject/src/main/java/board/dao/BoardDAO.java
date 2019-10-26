@@ -13,8 +13,8 @@ public interface BoardDAO {
 	
 	public int boardModify(Map<String,String> map);
 //	public void boardHit(int seq);
-//	public void boardReply(BoardDTO boardDTO);
 	public void boardDelete(int seq);
-//	public List<BoardDTO> boardSearch(Map<String, String> map);
-//	public int getSearchTotalA(Map<String, String> map);
+	public List<BoardDTO> boardSearch(Map<String, String> map);
+	public int getSearchTotalA(Map<String, String> map);
+	public void boardReply(Map<String, String> map);
 }

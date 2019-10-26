@@ -44,7 +44,7 @@ update board set hit=hit+1 where seq=#{seq}
 update board set step=step+1 where ref=#{ref} and step>#{step}
 </update>
 
-<insert id="boardReply2" parameterType="board">
+<insert id="boardReply2" parameterType="java.util.Map">
 insert into board values(seq_board.nextval,#{id},#{name},#{email},#{subject},#{content},#{ref},#{lev},#{step},#{pseq},0,0,sysdate)
 </insert>
 
@@ -78,8 +78,7 @@ end;
 			select * from
 			(select rownum rn, tt.* from
 			(select seq,id,name,email,subject,content,
-			        ref,lev,step,pseq,reply,hit, 
-			        to_char(logtime, 'YYYY.MM.DD') as logtime 
+			        ref,lev,step,pseq,reply,hit,logtime 
 			 from board
 			 <if test="searchOption == 'all'">
 			 where subject like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
@@ -93,13 +92,13 @@ end;
 </select>
 
 <select id="getSearchTotalA" parameterType="java.util.Map" resultType="Integer">
-select count(*) from board 
-<if test="searchOption == 'all'">
- where subject like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
-</if>
- <if test="searchOption != 'all'">
- where ${searchOption} like '%'||#{keyword}||'%'
-</if>
+	select count(*) from board 
+	<if test="searchOption == 'all'">
+	 where subject like '%'||#{keyword}||'%' or content like '%'||#{keyword}||'%'
+	</if>
+	 <if test="searchOption != 'all'">
+	 where ${searchOption} like '%'||#{keyword}||'%'
+	</if>
 </select>
 
 </mapper>

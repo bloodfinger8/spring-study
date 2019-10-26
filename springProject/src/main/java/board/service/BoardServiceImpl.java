@@ -45,6 +45,21 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.boardModify(map);
 	}
 
+	@Override
+	public List<BoardDTO> boardSearch(Map<String, String> map) {
+		return boardDAO.boardSearch(map);
+	}
+
+	@Override
+	public int getSearchTotalA(Map<String, String> map) {
+		return boardDAO.getSearchTotalA(map);
+	}
+
+	@Override
+	public void boardReply(Map<String, String> map) {
+		boardDAO.boardReply(map);
+	}
+
 
 
 	

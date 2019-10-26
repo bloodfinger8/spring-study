@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <style type="text/css">
 pre {
 	
@@ -28,9 +28,10 @@ pre {
 				<td colspan="3" >
 				<input type="button" value="목록" onclick="location.href='/springProject/board/boardList?pg=${pg}'">
 				<input type="button" value="답글" onclick="location.href='/springProject/board/boardReplyForm?pg=${pg}&pseq=${boardDTO.seq}'">
-				 				
-					<input type="button" value="글수정" onclick="location.href='boardModifyForm?pg=${pg}&seq=${boardDTO.seq}'">
-					<input type="button" value="글삭제" onclick="location.href='boardDelete?seq=${boardDTO.seq}'" >
+				 	<c:if test="${memId == boardDTO.id }">
+						<input type="button" value="글수정" onclick="location.href='boardModifyForm?pg=${pg}&seq=${boardDTO.seq}'">
+						<input type="button" value="글삭제" onclick="location.href='boardDelete?seq=${boardDTO.seq}'" >
+					</c:if>
 				</td>
 			</tr>
 	</table>
