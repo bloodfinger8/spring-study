@@ -34,6 +34,9 @@ public interface BoardService {
 
 	public void boardReply(Map<String, String> map);
 
+
+	public void boardHit(int seq);
+
 	
 	
 }

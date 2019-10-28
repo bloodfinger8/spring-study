@@ -47,24 +47,22 @@ $(document).ready(function(){
 		dataType : 'json',
 		success : function(data){
 			$.each(data['list'], function(key, value){
-				 $('#inputList').append('<tr>' +
+				 /* $('#inputList').append('<tr>' +
 								  	  '<td>'+value.seq+'</td>' + 
 									  '<td><a id="subjectA">'+value.subject+'</a></td>' + 
 									  '<td>'+value.id+'</td>' + 
 									  '<td>'+value.logtime+'</td>' +
 									  '<td>'+value.hit+'</td>'+
-									  '</tr>'); 
-				/* $('<tr/>').append($('<td/>',{
+									  '</tr>');  */
+				$('<tr/>').append($('<td/>',{
 					align: 'center',
 					text : value.seq
 				})).append($('<td/>',{
-					}).append($('<img/>',{
-						src : '../image/dapgle.gif'
-					})).append($('<a/>',{
+					}).append($('<a/>',{
 							href : 'javascript:void(0)',
 							id : 'subjectA',
 							text : value.subject,
-							class : value.seq
+							class : value.seq+""
 				})) ).append($('<td/>',{
 					align: 'center',
 					text : value.id
@@ -74,7 +72,20 @@ $(document).ready(function(){
 				})).append($('<td/>',{
 					align: 'center',
 					text : value.hit
-				})).appendTo($('#inputList'));  */
+				})).appendTo($('#inputList'));
+									  
+				//답글
+				for(i=0; i<value.lev; i++){
+					$('.' + value.seq).before('&emsp;');
+				}
+				if(value.lev != 0){
+					//$('.' + value.seq).prepend('<img id="theImg" src="../image/dapgle.gif" />')
+					$('.' + value.seq).before($('<img/>',{
+						src : '../image/dapgle.gif'
+					}));
+					$('.' + value.seq).parent().prev().css('visibility','hidden'); //글번호 숨기기
+				}
+			
 			});
 			//페이징 처리
 			$('#boardPaging').html(data.boardPaging.pagingHTML);
@@ -85,7 +96,7 @@ $(document).ready(function(){
 					alert('로그인 해라');
 				}else{
 					var seq = $(this).parent().prev().text();
-					//alert($(this).attr('class')); 이렇게 사용해도 된다
+					//var seq = $(this).attr('class'); 이렇게 사용해도 된다
 					$(location).attr("href", "http://localhost:8080/springProject/board/boardView?seq="+seq+"&pg="+$('#pgInput').val());
 				}
 			});

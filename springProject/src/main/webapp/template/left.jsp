@@ -10,6 +10,3 @@
 <jsp:include page="../member/loginOk.jsp"/>
 </c:if>
 
-<c:if test="${memIf==null && loginResult == 'fail' }">
-	<jsp:include page="../member/loginFail.jsp"/>
-</c:if>

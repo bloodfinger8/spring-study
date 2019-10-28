@@ -85,6 +85,11 @@ public class BoardDAOMybatis implements BoardDAO {
 		sqlSession.update("boardSQL.boardReply3", Integer.parseInt(map.get("pseq")));
 		
 	}
+
+	@Override
+	public void boardHit(int seq) {
+		sqlSession.update("boardSQL.boardHit" , seq);
+	}
 	
 
 	

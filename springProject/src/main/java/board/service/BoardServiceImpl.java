@@ -60,6 +60,11 @@ public class BoardServiceImpl implements BoardService {
 		boardDAO.boardReply(map);
 	}
 
+	@Override
+	public void boardHit(int seq) {
+		boardDAO.boardHit(seq);
+	}
+
 
 
 	

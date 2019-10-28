@@ -40,14 +40,13 @@ update board set subject=#{subject},content=#{content},logtime=sysdate where seq
 update board set hit=hit+1 where seq=#{seq}
 </update>
 
+
 <update id="boardReply1" parameterType="board">
 update board set step=step+1 where ref=#{ref} and step>#{step}
 </update>
-
 <insert id="boardReply2" parameterType="java.util.Map">
 insert into board values(seq_board.nextval,#{id},#{name},#{email},#{subject},#{content},#{ref},#{lev},#{step},#{pseq},0,0,sysdate)
 </insert>
-
 <update id="boardReply3" parameterType="Integer">
 update board set reply=reply+1 where seq=#{pseq}
 </update>

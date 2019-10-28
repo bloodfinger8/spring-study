@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,7 +64,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/writeAll" , method=RequestMethod.POST)
-	public ModelAndView writeAll(@RequestParam String pg ,HttpSession session) {
+	public ModelAndView writeAll(@RequestParam String pg,
+								 HttpSession session,
+								 HttpServletResponse response) {
 		int endNum = Integer.parseInt(pg) * 5; //한페이지당 5개
 		int startNum = endNum - 4;
 		
@@ -83,7 +87,16 @@ public class BoardController {
 		
 		String memId = (String)session.getAttribute("memId");
 		
+		//조회수(쿠키 생성) 
+		if(memId != null) {
+			Cookie cookie = new Cookie("memHit","0");
+			cookie.setMaxAge(60*60*24);
+			response.addCookie(cookie);
+		}
+		
+		
 		ModelAndView mav = new ModelAndView();
+		
 		mav.addObject("memId" , memId);
 		mav.addObject("list", list);
 		mav.addObject("boardPaging", boardPaging);
@@ -95,7 +108,27 @@ public class BoardController {
 	@RequestMapping(value="/board/boardView" , method=RequestMethod.GET)
 	public ModelAndView boarView(@RequestParam String seq,
 								 @RequestParam String pg,
-								 HttpSession session) {
+								 HttpSession session,
+								 HttpServletRequest request,
+								 HttpServletResponse response
+								 ){
+		
+		//쿠키조회
+		Cookie[] getCookie = request.getCookies();
+		if(getCookie != null) {
+			for(int i =0; i<getCookie.length; i++){
+				if(getCookie[i].getName().equals("memHit")){
+					//hit + 1
+					//boardDAO.boardHit(seq);
+					boardService.boardHit(Integer.parseInt(seq));
+					
+					getCookie[i].setMaxAge(0);
+					response.addCookie(getCookie[i]);
+				}
+			}
+		}
+		
+		
 		BoardDTO boardDTO= boardService.getBoard(Integer.parseInt(seq));
 		String id = (String) session.getAttribute("memId");
 		

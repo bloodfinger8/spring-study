@@ -12,7 +12,7 @@ public interface BoardDAO {
 	public BoardDTO getBoard(int seq);
 	
 	public int boardModify(Map<String,String> map);
-//	public void boardHit(int seq);
+	public void boardHit(int seq);
 	public void boardDelete(int seq);
 	public List<BoardDTO> boardSearch(Map<String, String> map);
 	public int getSearchTotalA(Map<String, String> map);

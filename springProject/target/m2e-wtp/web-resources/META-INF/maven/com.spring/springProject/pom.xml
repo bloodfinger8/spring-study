@@ -105,6 +105,24 @@
 		    <classifier>jdk15</classifier>
 		</dependency>
 		
+		<!-- file upload -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.6</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-fileupload</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.4</version>
+		</dependency>
+		
+		<!-- http -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.10</version>
+		</dependency>
 				
 		<!-- AspectJ -->
 		<dependency>
