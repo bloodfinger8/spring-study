@@ -1,26 +1,45 @@
 package imageboard.controller;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
 import org.omg.CORBA.portable.InputStream;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import imageboard.bean.ImageboardDTO;
+import imageboard.service.ImageboardService;
+import net.sf.json.JSONObject;
 
 @RestController
 @RequestMapping(value="imageboard")
 public class ImageboardController {
-
+	
+	@Autowired
+	private ImageboardService imageboardService;
 	
 	@RequestMapping(value="imageboardWriteForm" , method=RequestMethod.GET)
 	public ModelAndView imageboardWriteForm(Model model) {
@@ -32,39 +51,93 @@ public class ImageboardController {
 		mav.setViewName("/main/index");
 		return mav;
 	}
+
+	//name="img" 가 1개일 경우
+//	@RequestMapping(value="imageboardWrite" , method=RequestMethod.POST)
+//	public void imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
+//								@RequestParam MultipartFile img1,
+//								Model model) {
+//		
+//		String filePath = "/Users/yangjaewoo/Spring/workSTS/springProject/src/main/webapp/storage";
+//		String fileName = img1.getOriginalFilename();
+//		File file = new File(filePath , fileName );
+//		
+//		try {
+//			FileCopyUtils.copy(img1.getInputStream(), new FileOutputStream(file));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//	
+//		imageboardDTO.setImage1(fileName);
+//		imageboardService.imageboardWrite(imageboardDTO);
+//	}
 	
+	//name="img" 가 2개 이상일경우 - 배열로 받는다
+//	@RequestMapping(value="imageboardWrite" , method=RequestMethod.POST)
+//	public void imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
+//								@RequestParam MultipartFile[] img,
+//								Model model) {
+//		
+//		String filePath = "/Users/yangjaewoo/Spring/workSTS/springProject/src/main/webapp/storage";
+//		String fileName = img[0].getOriginalFilename();
+//		File file ;
+//		
+//		
+//		if(img[0]!=null) {
+//			fileName = img[0].getOriginalFilename();
+//			file = new File(filePath, fileName);
+//		
+//			try {
+//				FileCopyUtils.copy(img[0].getInputStream(), new FileOutputStream(file));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			imageboardDTO.setImage1(fileName);
+//		}else {
+//			imageboardDTO.setImage1(null);
+//		}
+//		//--------------
+//		if(img[1]!=null) {
+//			fileName = img[1].getOriginalFilename();
+//			file = new File(filePath, fileName);
+//		
+//			try {
+//				FileCopyUtils.copy(img[1].getInputStream(), new FileOutputStream(file));
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//			imageboardDTO.setImage2(fileName);
+//		}else {
+//			imageboardDTO.setImage2(null);
+//		}
+//		
+//		imageboardService.imageboardWrite(imageboardDTO);
+//	}
 	
-	@RequestMapping(value="imageboardData" , method=RequestMethod.GET)
-	public ModelAndView imageboardData(HttpServletRequest request,
-								 HttpServletResponse response) throws Exception {
+	//드래그해서 한번에 여러개의 파일을 선택했을때
+	@RequestMapping(value="imageboardWrite" , method=RequestMethod.POST)
+	public void imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
+								@RequestParam("img[]") List<MultipartFile> list,
+								Model model) {
 		
-		String key = "58zvG2lO4rQJ9KKRBk8%2Bnft9DnY9P39%2F5NUlt9lqgCYg%2Fb3h9T%2BQYcWzEejk9vXcEn16HaubYuNEbgSQKgFDpQ%3D%3D";
-		String addr = "http://openapi.jejusi.go.kr/rest/minbakinfoservice/getMinbakInfoList?ServiceKey="+key+"&pageNo=1&numOfRows=10";
+		String filePath = "/Users/yangjaewoo/Spring/workSTS/springProject/src/main/webapp/storage";
 		
-		PrintWriter out = response.getWriter();
+		for(MultipartFile img : list) {
+			String fileName = img.getOriginalFilename();
+			File file = new File(filePath , fileName);
+			
+			try {
+				FileCopyUtils.copy(img.getInputStream(), new FileOutputStream(file));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			imageboardDTO.setImage1(fileName);
+			imageboardService.imageboardWrite(imageboardDTO);
+			
+		}
 		
-		URL url = new URL(addr);
-		
-		InputStream in = (InputStream) url.openStream();
-		
-		ByteArrayOutputStream bos1 = new ByteArrayOutputStream();
-		IOUtils.copy(in, bos1);
-		in.close();
-		bos1.close();
-		
-		String mbos = bos1.toString("UTF-8");
-		
-		byte[] b = mbos.getBytes("UTF-8");
-		String s = new String(b,"UTF-8");
-		out.println(s);
-		
-		ModelAndView mav = new ModelAndView();
-		
-		mav.addObject("data", s);
-		mav.setViewName("jsonView");
-		return mav;
 	}
-	
 	
 	
 }

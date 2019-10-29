@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="imageboardSQL">
 
-<insert id="write" parameterType="imageboard">
+<insert id="imageboardWrite" parameterType="imageboard">
 insert into imageboard values(seq_imageboard.nextval,#{imageId},#{imageName},#{imagePrice},#{imageQty},#{imageContent},#{image1},sysdate)
 </insert>
 
