@@ -12,7 +12,7 @@ Spring mvc project</h3>
 		<c:if test="${memId == 'admin'}">
 			<a href="/springProject/imageboard/imageboardWriteForm">이미지등록</a>&emsp;
 		</c:if>
-	<a href="/springProject/imageboard/imageboardList?pg=1">이미지게시판</a>&emsp;
+	<a href="/springProject/imageboard/imageboardList">이미지게시판</a>&emsp;
 </c:if>
 <a href="/springProject/board/boardList">게시판</a>&emsp;
 

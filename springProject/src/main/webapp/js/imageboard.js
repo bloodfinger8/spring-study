@@ -32,7 +32,7 @@ $('#imageboardWriteBtn').on("click" , function(){
 			data : formData,
 			success : function(){
 				alert('등록성공');
-				$(location).attr("href", "http://localhost:8080/springProject/main/index");
+				$(location).attr("href", "http://localhost:8080/springProject/imageboard/imageboardList");
 			},
 			error : function(err){
 				console.log(err);

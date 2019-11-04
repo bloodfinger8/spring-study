@@ -1,7 +1,9 @@
 package imageboard.bean;
 
-import lombok.Data;
+import org.springframework.stereotype.Component;
 
+import lombok.Data;
+@Component
 @Data
 public class ImageboardPaging {
 	private int currentPage; //현재 페이지

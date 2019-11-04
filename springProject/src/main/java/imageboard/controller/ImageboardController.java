@@ -31,15 +31,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import imageboard.bean.ImageboardDTO;
+import imageboard.bean.ImageboardPaging;
 import imageboard.service.ImageboardService;
 import net.sf.json.JSONObject;
 
-@RestController
+@Controller
 @RequestMapping(value="imageboard")
 public class ImageboardController {
 	
 	@Autowired
 	private ImageboardService imageboardService;
+	@Autowired
+	private ImageboardPaging imageboardPaging;
 	
 	@RequestMapping(value="imageboardWriteForm" , method=RequestMethod.GET)
 	public ModelAndView imageboardWriteForm(Model model) {
@@ -71,7 +74,6 @@ public class ImageboardController {
 //		imageboardDTO.setImage1(fileName);
 //		imageboardService.imageboardWrite(imageboardDTO);
 //	}
-	
 	//name="img" 가 2개 이상일경우 - 배열로 받는다
 //	@RequestMapping(value="imageboardWrite" , method=RequestMethod.POST)
 //	public void imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
@@ -113,7 +115,6 @@ public class ImageboardController {
 //		
 //		imageboardService.imageboardWrite(imageboardDTO);
 //	}
-	
 	//드래그해서 한번에 여러개의 파일을 선택했을때
 	@RequestMapping(value="imageboardWrite" , method=RequestMethod.POST)
 	public void imageboardWrite(@ModelAttribute ImageboardDTO imageboardDTO,
@@ -139,5 +140,71 @@ public class ImageboardController {
 		
 	}
 	
+	
+	@RequestMapping(value="imageboardList" , method=RequestMethod.GET)
+	public String imageboardList(@RequestParam(required=false, defaultValue="1") String pg , Model model) {
+		model.addAttribute("pg" , pg);
+		model.addAttribute("display" , "/imageboard/imageboardList.jsp");
+		return "/main/index";
+	}
+	
+	@RequestMapping(value="getImageboardList" , method=RequestMethod.POST)
+	public ModelAndView getImageboardList(@RequestParam(required=false, defaultValue="1") String pg) {
+		int endNum = Integer.parseInt(pg) * 3; //한페이지당 5개
+		int startNum = endNum - 2;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		
+		List<ImageboardDTO> list = imageboardService.getImageboardList(map);
+		
+		//paging
+		int totalA = imageboardService.getImageboardTotalA();
+		imageboardPaging.setCurrentPage(Integer.parseInt(pg));
+		imageboardPaging.setPageBlock(3);
+		imageboardPaging.setPageSize(3);
+		imageboardPaging.setTotalA(totalA);
+		imageboardPaging.makePagingHTML();
+		
+		
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("pg" , pg);
+		mav.addObject("list" , list);
+		mav.addObject("imageboardPaging", imageboardPaging);
+		mav.setViewName("jsonView");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value="imageboardDelete" , method=RequestMethod.GET)
+	public String imageboardDelete(@RequestParam String[] check, Model model) {
+		Map<String, String[]> map = new HashMap<String, String[]>(); //배열을 담아서 보내기 위해 사용한다.
+		map.put("seq", check);
+		
+		imageboardService.imageboardDelete(map);
+		model.addAttribute("display" ,"/imageboard/imageboardList.jsp");
+		return "/main/index";
+	}
+	
+	@RequestMapping(value="imageboardView", method=RequestMethod.GET)
+	public String imageboardView(@RequestParam String seq, @RequestParam String pg, Model model) {
+		model.addAttribute("seq", seq);
+		model.addAttribute("pg", pg);
+		model.addAttribute("display", "/imageboard/imageboardView.jsp");
+		return "/main/index";
+	}
+	
+	@RequestMapping(value="getImageboardView" , method=RequestMethod.POST)
+	public ModelAndView getImageboardView(@RequestParam String seq) {
+		ImageboardDTO imageboardDTO = imageboardService.getImageboardView(Integer.parseInt(seq));
+		System.out.println(imageboardDTO);
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("imageboardDTO", imageboardDTO);
+		mav.setViewName("jsonView");
+		return mav;
+	}
 	
 }

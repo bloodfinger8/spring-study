@@ -46,6 +46,7 @@ $(document).ready(function(){
 		data : 'pg='+$('#pgInput').val(),
 		dataType : 'json',
 		success : function(data){
+			alert(JSON.stringify(data));
 			$.each(data['list'], function(key, value){
 				 /* $('#inputList').append('<tr>' +
 								  	  '<td>'+value.seq+'</td>' + 
